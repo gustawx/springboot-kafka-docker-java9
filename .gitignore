@@ -342,3 +342,6 @@ gradle-app.setting
 .sonarlint/
 
 # End of https://www.gitignore.io/api/node,java,scala,sonar,intellij,sonarqube,reactnative
+
+# target dir
+target/
