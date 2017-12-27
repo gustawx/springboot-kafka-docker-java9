@@ -26,30 +26,8 @@ public class MoviesController {
 //        m.put("FILMY", "jakies filmy");
 //        return m;
 //    }
-    /*
-    @RequestMapping(value = "/movies/stream",
-            method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public StreamingResponseBody streamMovies() {
-        return new StreamingResponseBody() {
-            @Override
-            public void writeTo(OutputStream outputStream) throws IOException {
-                for (int i = 0; i < 1000; i++) {
-                    outputStream.write((Integer.toString(i) + " - ")
-                            .getBytes());
-                    outputStream.flush();
-                    try {
-                        Thread.sleep(5);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-    }*/
 
-    @RequestMapping(value = "/movies/stream",
-            method = RequestMethod.GET)
+    @RequestMapping(value = "/movies/stream", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public StreamingResponseBody streamMovies() {
         return new StreamingResponseBody() {
@@ -57,18 +35,17 @@ public class MoviesController {
             public void writeTo(OutputStream outputStream) {
                 MovieParser.getMovies()
                         .forEach(el -> {
-                            log.info(el.title() + ": " + el.releaseYear() + "\n");
                             try {
                                 outputStream.write((el.toString() + " ").getBytes());
                                 outputStream.flush();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                log.error("Interrupted exception, probably by the client");
-                            }
+//                            try {
+//                                Thread.sleep(100);
+//                            } catch (InterruptedException e) {
+//                                log.error("Interrupted exception, probably by the client");
+//                            }
                         });
             }
 
