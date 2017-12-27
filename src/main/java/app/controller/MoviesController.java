@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.service.MovieParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,10 +12,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 @RestController
 public class MoviesController {
-
+    Log log = LogFactory.getLog(MoviesController.class);
 //    @RequestMapping(value = "/movies/all",
 //            method= RequestMethod.GET)
 //    @ResponseStatus(HttpStatus.OK)
@@ -23,9 +26,9 @@ public class MoviesController {
 //        m.put("FILMY", "jakies filmy");
 //        return m;
 //    }
-
+    /*
     @RequestMapping(value = "/movies/stream",
-            method= RequestMethod.GET)
+            method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public StreamingResponseBody streamMovies() {
         return new StreamingResponseBody() {
@@ -42,6 +45,33 @@ public class MoviesController {
                     }
                 }
             }
+        };
+    }*/
+
+    @RequestMapping(value = "/movies/stream",
+            method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public StreamingResponseBody streamMovies() {
+        return new StreamingResponseBody() {
+            @Override
+            public void writeTo(OutputStream outputStream) {
+                MovieParser.getMovies()
+                        .forEach(el -> {
+                            log.info(el.title() + ": " + el.releaseYear() + "\n");
+                            try {
+                                outputStream.write((el.toString() + " ").getBytes());
+                                outputStream.flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                log.error("Interrupted exception, probably by the client");
+                            }
+                        });
+            }
+
         };
     }
 }

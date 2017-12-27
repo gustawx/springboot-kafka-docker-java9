@@ -38,6 +38,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" + "title=" + title + ", releaseYear=" + releaseYear + ", actors=" + actors + '}';
+        return "Movie{" + "title=" + title + ", releaseYear=" + releaseYear;// + ", actors=" + actors + '}';
     }
 }

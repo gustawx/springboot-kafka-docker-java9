@@ -15,7 +15,6 @@ import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @RunWith(PowerMockRunner.class)
@@ -26,20 +25,13 @@ public class MoviesControllerTest {
     @Test
     public void getMoviesTest(){
         mockStatic(MovieParser.class);
-        PowerMockito.when(MovieParser.getMovies()).thenReturn(Set.of(
-                new Movie("Fake title", 1982),
-                new Movie("Another Fake title", 2007)));
+        Movie movie1 = new Movie("Fake title", 1982);
+        Movie movie2 = new Movie("Another Fake title", 2007);
+        PowerMockito.when(MovieParser.getMovies())
+                    .thenReturn(Set.of(movie1, movie2));
 
-        HomeController hc = new HomeController();
+        Set<Movie> callAllMovies = (new HomeController()).home();
 
-        Set<Movie> m = hc.home();
-        Set<Movie> mockM = (Set.of(
-                new Movie("Fake title", 1982),
-                new Movie("Another Fake title", 2007)));
-
-        assertThat(m, equalTo(mockM));
-
-        assertThat(m, hasItems(new Movie("Fake title", 1982),
-                new Movie("Another Fake title", 2007)));
+        assertThat(callAllMovies, hasItems(movie1, movie2));
     }
 }
