@@ -23,11 +23,13 @@ public class MoviesController {
                 MovieParser.getMovies()
                         .forEach(el -> {
                             try {
-                                outputStream.write((el.title()
+                                outputStream.write((
+                                        el.title()
                                         + " : "
                                         + el.releaseYear()
                                         + "\n")
-                                        .getBytes());
+                                        .getBytes()
+                                );
                                 outputStream.flush();
                             } catch (IOException e) {
                                 e.printStackTrace();

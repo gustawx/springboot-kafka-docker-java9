@@ -5,18 +5,13 @@ import app.model.Movie;
 import app.utils.FileUtil;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 
 public class MovieParser {
 
     public static Set<Movie> getMovies() {
-        Log log = LogFactory.getLog(MovieParser.class);
         Set<Movie> movies = new HashSet<>();
 
         try ( Stream<String> lines = FileUtil.getLines("/movies/movies-mpaa.txt")){
