@@ -11,10 +11,22 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 @RestController
-public class MoviesController {
+public class MoviesSetController {
+    Log log = LogFactory.getLog(MoviesSetController.class);
+//    @RequestMapping(value = "/movies/all",
+//            method= RequestMethod.GET)
+//    @ResponseStatus(HttpStatus.OK)
+//    public Map<String, String> movies(){
+//        Map<String, String> m = new HashMap<String, String>();
+//        m.put("FILMY", "jakies filmy");
+//        return m;
+//    }
     // streams all movies from Set<Movie> of all movies
-    @RequestMapping(value = "/movies/stream", method = RequestMethod.GET)
+    @RequestMapping(value = "/movies/all", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public StreamingResponseBody streamMovies() {
         return new StreamingResponseBody() {
@@ -23,17 +35,19 @@ public class MoviesController {
                 MovieParser.getMovies()
                         .forEach(el -> {
                             try {
-                                outputStream.write((el.title()
-                                        + " : "
-                                        + el.releaseYear()
-                                        + "\n")
-                                        .getBytes());
+                                outputStream.write((el.releaseYear() + " ").getBytes());
                                 outputStream.flush();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                log.error("Interrupted exception, probably by the client");
+                            }
                         });
             }
+
         };
     }
 }

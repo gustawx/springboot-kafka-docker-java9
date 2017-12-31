@@ -14,20 +14,20 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = App.class)
-public class MoviesControllerTest {
+public class MoviesSetControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
     public void rootPath(){
-        String body =  this.restTemplate.getForObject("/", String.class);
+        String body =  restTemplate.getForObject("/", String.class);
         assertThat(body, notNullValue());
     }
 
     @Test
     public void moviesAll(){
-        String body =  this.restTemplate.getForObject("/movies/all", String.class);
+        String body =  restTemplate.getForObject("/movies/all", String.class);
         assertThat(body, containsString("releaseYear"));
     }
 }

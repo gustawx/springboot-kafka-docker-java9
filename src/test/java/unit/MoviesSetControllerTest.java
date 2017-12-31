@@ -19,7 +19,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @RunWith(PowerMockRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = App.class)
-public class MoviesControllerTest {
+public class MoviesSetControllerTest {
 
     @PrepareForTest(MovieParser.class)
     @Test
