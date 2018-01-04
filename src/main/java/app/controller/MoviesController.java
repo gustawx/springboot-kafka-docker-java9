@@ -13,7 +13,7 @@ import java.io.OutputStream;
 
 @RestController
 public class MoviesController {
-    // streams all movies from Set<Movie> of all movies
+    // streams all movies
     @RequestMapping(value = "/movies/stream", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public StreamingResponseBody streamMovies() {
