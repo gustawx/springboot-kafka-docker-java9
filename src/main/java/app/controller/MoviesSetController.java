@@ -12,9 +12,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @RestController
+@RequestMapping("api/movies/")
 public class MoviesSetController {
     // streams all movies from Set<Movie> of all movies
-    @RequestMapping(value = "/movies/all", method = RequestMethod.GET)
+    @RequestMapping(value = "years", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public StreamingResponseBody streamMovies() {
         return new StreamingResponseBody() {
