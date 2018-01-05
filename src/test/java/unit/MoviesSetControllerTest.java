@@ -6,6 +6,7 @@ import app.model.Movie;
 import app.service.MovieParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -21,6 +22,9 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = App.class)
 public class MoviesSetControllerTest {
 
+    @InjectMocks
+    private HomeController homeController;
+
     @PrepareForTest(MovieParser.class)
     @Test
     public void getMoviesTest(){
@@ -30,8 +34,7 @@ public class MoviesSetControllerTest {
         PowerMockito.when(MovieParser.getMovies())
                     .thenReturn(Set.of(movie1, movie2));
 
-        Set<Movie> callAllMovies = (new HomeController()).home();
-
+        Set<Movie> callAllMovies = homeController.home();
         assertThat(callAllMovies, hasItems(movie1, movie2));
     }
 }

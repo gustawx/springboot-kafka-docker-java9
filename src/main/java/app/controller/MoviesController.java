@@ -1,6 +1,6 @@
 package app.controller;
 
-import app.service.MovieParser;
+import app.service.MovieStreamParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,21 +21,26 @@ public class MoviesController {
         return new StreamingResponseBody() {
             @Override
             public void writeTo(OutputStream outputStream) {
-                MovieParser.getMovies()
-                        .forEach(el -> {
-                            try {
-                                outputStream.write((
-                                        el.title()
-                                        + " : "
-                                        + el.releaseYear()
-                                        + "\n")
-                                        .getBytes()
-                                );
-                                outputStream.flush();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
+                MovieStreamParser movieStreamParser = new MovieStreamParser();
+                try {
+                    movieStreamParser.getMovies()
+                            .forEach(el -> {
+                                try {
+                                    outputStream.write((
+                                            el.title()
+                                            + " : "
+                                            + el.releaseYear()
+                                            + "\n")
+                                            .getBytes()
+                                    );
+                                    outputStream.flush();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }
