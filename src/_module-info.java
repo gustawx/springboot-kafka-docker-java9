@@ -1,7 +1,9 @@
 open module app {
     requires java.xml.bind;
     requires javax.transaction.api;
+    requires hibernate.validator;
     requires hibernate.jpa;
+    requires validation.api;
     requires spring.beans;
     requires spring.core;
     requires spring.context;
