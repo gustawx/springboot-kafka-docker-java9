@@ -1,4 +1,3 @@
-/*
 open module app {
     requires java.xml.bind;
     requires javax.transaction.api;
@@ -14,4 +13,3 @@ open module app {
     requires spring.boot;
     requires spring.boot.autoconfigure;
 }
-*/
