@@ -18,7 +18,7 @@ public class FileUtil {
     public static Stream<String> getLines(String file) throws IOException {
         return Optional.ofNullable(
                     Files.lines(
-                            FileUtil.getFilePath(file)))
+                            getFilePath(file)))
                     .orElse(Stream.empty());
     }
 }

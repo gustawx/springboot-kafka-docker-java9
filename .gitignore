@@ -343,5 +343,6 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/node,java,scala,sonar,intellij,sonarqube,reactnative
 
-# target dir
+# target and idea dirs
 target/
+.idea/

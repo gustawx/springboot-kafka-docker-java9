@@ -1,6 +1,8 @@
+/*
 open module app {
     requires java.xml.bind;
-    requires javax.transaction.api;
+//    requires com.fasterxml.jackson.databind;
+//    requires javax.transaction.api;
     requires hibernate.validator;
     requires hibernate.jpa;
     requires validation.api;
@@ -14,4 +16,7 @@ open module app {
     requires spring.data.jpa;
     requires spring.boot;
     requires spring.boot.autoconfigure;
+    requires jackson.annotations;
+    requires java.sql;
 }
+*/

@@ -1,6 +1,7 @@
 package integration;
 
 import app.App;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class MoviesSetControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
+    @Ignore
     @Test
     public void rootPath(){
         ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
@@ -31,7 +32,7 @@ public class MoviesSetControllerTest {
         assertThat(body, containsString("title"));
         assertThat(body, containsString("actors"));
     }
-
+    @Ignore
     @Test
     public void moviesYears(){
         String body =  restTemplate.getForObject("/api/movies/years", String.class);
